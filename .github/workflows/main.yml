@@ -13,14 +13,12 @@ jobs:
       - name: Install jq
         run: sudo apt-get install -y jq
 
-      - name: List Discussions
-        id: list-discussions
+      - name: Fetch Discussions
         run: |
-          TOKEN=$GITHUB_TOKEN
           REPO_API_URL=$(jq -r '.repository_url' $GITHUB_EVENT_PATH)
           DISCUSSIONS_API_URL="${REPO_API_URL}/discussions"
-
-          curl -s -X GET -u "x-access-token:${TOKEN}" "${DISCUSSIONS_API_URL}" > discussions.json
+    
+          curl -s -X GET -u "x-access-token:${GITHUB_TOKEN}" "${DISCUSSIONS_API_URL}" > discussions.json
 
       - name: Delete Discussions
         id: delete-discussions
