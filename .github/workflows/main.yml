@@ -39,5 +39,4 @@ jobs:
           TOKEN=$GITHUB_TOKEN
           DISCUSSION_URL="https://github.com/qnblackcat/uYouPlus/discussions/269"
           DISCUSSION_ID=$(echo $DISCUSSION_URL | awk -F'/' '{print $NF}')
-          DISCUSSION_API_URL="https://api.github.com/repos/arichorn/Delete-GitHub-Discussions/discussions/${DISCUSSION_ID}"
-          curl -s -X DELETE -u "x-access-token:${TOKEN}" "${DISCUSSION_API_URL}"
+          DISCUSSION_API_URL="https://api.github.com/repos/arichorn/Delete-GitHub-Discussions/discussions
