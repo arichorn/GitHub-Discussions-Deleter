@@ -15,10 +15,8 @@ jobs:
 
       - name: Fetch Discussions
         run: |
-          REPO_API_URL=$(jq -r '.repository_url' $GITHUB_EVENT_PATH)
-          DISCUSSIONS_API_URL="${REPO_API_URL}/discussions"
-    
-          curl -s -X GET -u "x-access-token:${GITHUB_TOKEN}" "${DISCUSSIONS_API_URL}" > discussions.json
+          REPO_API_URL="${{ github.event.repository.url }}/discussions"
+          curl -s -X GET -u "x-access-token:${{ secrets.GITHUB_TOKEN }}" "${REPO_API_URL}" > discussions.json
 
       - name: Delete Discussions
         id: delete-discussions
