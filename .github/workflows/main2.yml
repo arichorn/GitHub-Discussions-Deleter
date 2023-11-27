@@ -1,9 +1,6 @@
-name: Close Specific Issue
+name: Close Issue
 
 on:
-  issues:
-    types:
-      - opened
   workflow_dispatch:
 
 jobs:
@@ -11,24 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check if it is the desired issue
-        id: check_issue
-        run: |
-          if [ "${{ github.event.issue.number }}" == "1" ]; then
-            echo "close_issue=true" >> $GITHUB_STATE
-          else
-            echo "close_issue=false" >> $GITHUB_STATE
-          fi
-
-      - name: Close the issue
-        if: steps.check_issue.outputs.close_issue == 'true'
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            github.issues.update({
-              owner: 'PoomSmart',
-              repo: 'YTUnShorts',
-              issue_number: 1,
-              state: 'closed'
-            })
+    - name: Close Issue
+      uses: peter-evans/close-issue@v1
+      with:
+        issue-number: 1
+        repository: PoomSmart/YTUnShorts
+        comment: 'Closing the issue because iCrazeiOS has fixed the problem!'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
