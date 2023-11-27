@@ -19,7 +19,7 @@ jobs:
               state: 'open',
             });
             
-            const issueNumber = issues.find(issue => issue.title === 'your-issue-title')?.number;
+            const issueNumber = issues.find(issue => issue.title === 'Big Gap in YouTube Home Feed')?.number;
 
             if (issueNumber) {
               await github.issues.update({
