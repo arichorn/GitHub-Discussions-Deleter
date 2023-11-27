@@ -1,0 +1,33 @@
+name: Close Specific Issue
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  close-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if it is the desired issue
+        run: |
+          if [ "${{ github.event.issue.number }}" == "1" ]; then
+            echo "::set-output name=close_issue::true"
+          else
+            echo "::set-output name=close_issue::false"
+          fi
+        id: check_issue
+
+      - name: Close the issue
+        if: steps.check_issue.outputs.close_issue == 'true'
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.update({
+              owner: 'PoomSmart',
+              repo: 'YTUnShorts',
+              issue_number: 1,
+              state: 'closed'
+            })
