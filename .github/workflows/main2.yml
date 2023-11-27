@@ -13,6 +13,27 @@ jobs:
       with:
         issue-number: 1
         repository: PoomSmart/YTUnShorts
-        comment: 'Closing the issue because iCrazeiOS has fixed the problem!'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Close Issue 2
+      uses: actions/github-script@v4
+      with:
+        script: |
+            const { data: issues } = await github.issues.listForRepo({
+              owner: 'PoomSmart',
+              repo: 'YTUnShorts',
+              creator: 'arichorn',
+              state: 'open',
+            });
+            
+            const issueNumber = issues.find(issue => issue.title === 'your-issue-title')?.number;
+
+            if (issueNumber) {
+              await github.issues.update({
+                owner: 'PoomSmart',
+                repo: 'YTUnShorts',
+                issue_number: 1,
+                state: 'closed',
+              });
+            }
