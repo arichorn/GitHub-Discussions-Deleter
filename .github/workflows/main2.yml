@@ -8,14 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Close Issue
-      uses: peter-evans/close-issue@v1
-      with:
-        issue-number: 1
-        repository: PoomSmart/YTUnShorts
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Close Issue 2
       uses: actions/github-script@v4
       with:
@@ -37,3 +29,11 @@ jobs:
                 state: 'closed',
               });
             }
+
+    - name: Close Issue
+      uses: peter-evans/close-issue@v1
+      with:
+        issue-number: 1
+        repository: PoomSmart/YTUnShorts
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
