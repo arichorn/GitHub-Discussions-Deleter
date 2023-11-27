@@ -12,13 +12,13 @@ jobs:
 
     steps:
       - name: Check if it is the desired issue
+        id: check_issue
         run: |
           if [ "${{ github.event.issue.number }}" == "1" ]; then
-            echo "::set-output name=close_issue::true"
+            echo "close_issue=true" >> $GITHUB_STATE
           else
-            echo "::set-output name=close_issue::false"
+            echo "close_issue=false" >> $GITHUB_STATE
           fi
-        id: check_issue
 
       - name: Close the issue
         if: steps.check_issue.outputs.close_issue == 'true'
